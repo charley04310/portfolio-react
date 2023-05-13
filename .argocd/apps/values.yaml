@@ -1,0 +1,15 @@
+#
+ProjectName: portfolio-charley
+
+#
+applications:
+- name: portfolio-charley
+  namespace: charley
+  repoURL: https://github.com/charley04310/portfolio-react
+  chart: .helm/portfolio
+  server: https://kubernetes.default.svc
+- name: portfolio-frontend-charley
+  namespace: charley
+  repoURL: https://github.com/charley04310/portfolio-react
+  chart: frontend/.helm/portfolio-frontend
+  server: https://kubernetes.default.svc
