@@ -7,7 +7,7 @@ replicaCount: 1
 image:
   repository: lamenace90/portfolio-frontend
   pullPolicy: Always
-  tag: '58f53c8'
+  tag: 'bb5229b'
 
 resources:
   limits:
