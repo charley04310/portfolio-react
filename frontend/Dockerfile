@@ -1,22 +1,29 @@
-FROM node as build
+# Base image
 
-# create app directory
+FROM node:18-alpine AS build
+
+# Set the working directory
+
 WORKDIR /app
 
-# copy package.json first to leverage Docker cache
+# Copy package.json and package-lock.json
+
 COPY package.json .
 
-# install dependencies
+# Install dependencies
+
 RUN npm install
 
-# copy app source
+# Copy the rest of the app
+
 COPY . .
 
-
-# start app
 RUN npm run build
 
-FROM nginx:alpine
+# Serve the app with a web server
+
+FROM nginx:stable-alpine AS prod
 
 COPY --from=build /app/build /usr/share/nginx/html
+
 COPY nginx.conf /etc/nginx/conf.d/default.conf
