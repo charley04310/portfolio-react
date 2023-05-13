@@ -34,7 +34,7 @@ jobs:
         context: frontend
         target: prod
         push: true
-        tags: thomasmauran/portfolio-frontend:${{ steps.commit.outputs.short }}
+        tags: lamenace90/portfolio-frontend:${{ steps.commit.outputs.short }}
 
     - name: Update tag version frontend
       run: "git_hash=${{ steps.commit.outputs.short }}\nversion=$(cat frontend/.helm/portfolio-frontend/values.yaml | grep tag: | awk '{print $2}')\nsed -i \"s|$version|'${git_hash}'|\" frontend/.helm/portfolio-frontend/values.yaml \n"
