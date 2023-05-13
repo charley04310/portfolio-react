@@ -1,31 +1,24 @@
-# Base image
+FROM node as build
 
-FROM node:18-alpine AS build
-
-# Set the working directory
-
+# create app directory
 WORKDIR /app
 
-# Copy package.json and package-lock.json
+# copy package.json first to leverage Docker cache
+COPY package.json .
 
-COPY package*.json ./
-
-# Install dependencies
-
+# install dependencies
 RUN npm install
 
-# Copy the rest of the app
-
+# copy app source
 COPY . .
 
+ARG REACT_APP_NAME
+
+ENV REACT_APP_NAME=$REACT_APP_NAME
+# start app
 RUN npm run build
 
-# Serve the app with a web server
 
-FROM nginx:stable-alpine AS prod
-
-COPY --from=0 /app/build /usr/share/nginx/html
-
-# Config to serve the app on the root path and handle 404 errors
-
+FROM nginx:alpine
+COPY --from=build /app/build /usr/share/nginx/html
 COPY nginx.conf /etc/nginx/conf.d/default.conf
