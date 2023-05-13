@@ -1,5 +1,5 @@
 #
-name: portfolio-frontend
+name: portfolio-frontend-charley
 namespace: charley
 
 replicaCount: 1
