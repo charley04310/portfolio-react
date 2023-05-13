@@ -24,7 +24,7 @@ RUN npm run build
 
 FROM nginx:stable-alpine AS prod
 
-COPY --from=0 /app/dist /usr/share/nginx/html
+COPY --from=0 /app/build /usr/share/nginx/html
 
 # Config to serve the app on the root path and handle 404 errors
 
